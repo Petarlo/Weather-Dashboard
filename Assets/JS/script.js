@@ -1,5 +1,4 @@
 // global variables
-var apiKey = "1b18ce13c84e21faafb19c931bb29331";
 var savedSearches = [];
 
 // make list of previously searched cities
@@ -58,7 +57,7 @@ var loadSearchHistory = function() {
 
 var currentWeatherSection = function(cityName) {
     // get and use data from open weather current weather api end point
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=eaed0e2080f0a5121f48dfec8b3982de`)
         // get response and turn it into objects
         .then(function(response) {
             return response.json();
@@ -68,7 +67,7 @@ var currentWeatherSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=${apiKey}`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
@@ -115,7 +114,7 @@ var currentWeatherSection = function(cityName) {
 
 var fiveDayForecastSection = function(cityName) {
     // get and use data from open weather current weather api end point
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=eaed0e2080f0a5121f48dfec8b3982de`)
         // get response and turn it into objects
         .then(function(response) {
             return response.json();
@@ -125,7 +124,7 @@ var fiveDayForecastSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=${apiKey}`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
