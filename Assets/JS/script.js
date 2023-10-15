@@ -1,4 +1,5 @@
 // global variables
+var apiKey = "1b18ce13c84e21faafb19c931bb29331";
 var savedSearches = [];
 
 // make list of previously searched cities
@@ -18,7 +19,7 @@ var searchHistoryList = function(cityName) {
     searchEntryContainer.append(searchHistoryEntry);
 
     // append entry container to search history container
-    var searchHistoryContainerEl = $("#searchHistoryContainer");
+    var searchHistoryContainerEl = $("#search-history-container");
     searchHistoryContainerEl.append(searchEntryContainer);
 
     if (savedSearches.length > 0){
@@ -32,7 +33,7 @@ var searchHistoryList = function(cityName) {
     localStorage.setItem("savedSearches", JSON.stringify(savedSearches));
 
     // reset search input
-    $("#searchInput").val("");
+    $("#search-input").val("");
 
 };
 
@@ -57,7 +58,7 @@ var loadSearchHistory = function() {
 
 var currentWeatherSection = function(cityName) {
     // get and use data from open weather current weather api end point
-    fetch(`https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
         // get response and turn it into objects
         .then(function(response) {
             return response.json();
@@ -67,7 +68,7 @@ var currentWeatherSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=${apiKey}`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
@@ -77,12 +78,12 @@ var currentWeatherSection = function(cityName) {
                     searchHistoryList(cityName);
 
                     // add current weather container with border to page
-                    var currentWeatherContainer = $("#currentWeatherContainer");
-                    currentWeatherContainer.addClass("currentWeatherContainer");
+                    var currentWeatherContainer = $("#current-weather-container");
+                    currentWeatherContainer.addClass("current-weather-container");
 
                     // add city name, date, and weather icon to current weather section title
-                    var currentTitle = $("#currentWeather");
-                    var currentDay = moment().format("M/D/YYYY");
+                    var currentTitle = $("#current-title");
+                    var currentDay = moment().format("DD/MM/YYYY");
                     currentTitle.text(`${cityName} (${currentDay})`);
                     var currentIcon = $("#current-weather-icon");
                     currentIcon.addClass("current-weather-icon");
@@ -90,22 +91,22 @@ var currentWeatherSection = function(cityName) {
                     currentIcon.attr("src", `https://openweathermap.org/img/wn/${currentIconCode}@2x.png`);
 
                     // add current temperature to page
-                    var currentTemperature = $("#currentTemp");
-                    currentTemperature.text("Temp: " + response.current.temp + " \u00B0F");
-
-                    // add current humidity to page
-                    var currentHumidity = $("#currentHumidity");
-                    currentHumidity.text("Humidity: " + response.current.humidity + "%");
+                    var currentTemperature = $("#current-temperature");
+                    currentTemperature.text("Temperature: " + response.current.temp + "\u00B0C");
 
                     // add current wind speed to page
-                    var currentWindSpeed = $("#currentWind");
-                    currentWindSpeed.text("Wind Speed: " + response.current.wind_speed + " Kph");
+                    var currentWindSpeed = $("#current-wind-speed");
+                    currentWindSpeed.text("Wind Speed: " + response.current.wind_speed + "m/s");
+
+                    // add current humidity to page
+                    var currentHumidity = $("#current-humidity");
+                    currentHumidity.text("Humidity: " + response.current.humidity + "%");
 
                 })
         })
         .catch(function(err) {
             // reset search input
-            $("#searchInput").val("");
+            $("#search-input").val("");
 
             // alert user that there was an error
             alert("We could not find the city you searched for. Try searching for a valid city.");
@@ -114,7 +115,7 @@ var currentWeatherSection = function(cityName) {
 
 var fiveDayForecastSection = function(cityName) {
     // get and use data from open weather current weather api end point
-    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+    fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}`)
         // get response and turn it into objects
         .then(function(response) {
             return response.json();
@@ -124,7 +125,7 @@ var fiveDayForecastSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=${apiKey}`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
@@ -133,36 +134,36 @@ var fiveDayForecastSection = function(cityName) {
                     console.log(response);
 
                     // add 5 day forecast title
-                    var futureForecastTitle = $("#forecastTitle");
+                    var futureForecastTitle = $("#future-forecast-title");
                     futureForecastTitle.text("5-Day Forecast:")
 
                     // using data from response, set up each day of 5 day forecast
                     for (var i = 1; i <= 5; i++) {
                         // add class to future cards to create card containers
-                        var futureCard = $(".futureCard");
+                        var futureCard = $(".future-card");
                         futureCard.addClass("future-card-details");
 
                         // add date to 5 day forecast
-                        var futureDate = $("#futureDate" + i);
-                        date = moment().add(i, "d").format("M/D/YYYY");
+                        var futureDate = $("#future-date-" + i);
+                        date = moment().add(i, "d").format("DD/MM/YYYY");
                         futureDate.text(date);
 
                         // add icon to 5 day forecast
-                        var futureIcon = $("#futureDateIcon-" + i);
+                        var futureIcon = $("#future-icon-" + i);
                         futureIcon.addClass("future-icon");
                         var futureIconCode = response.daily[i].weather[0].icon;
                         futureIcon.attr("src", `https://openweathermap.org/img/wn/${futureIconCode}@2x.png`);
 
                         // add temp to 5 day forecast
-                        var futureTemp = $("#futureTemp-" + i);
-                        futureTemp.text("Temp: " + response.daily[i].temp.day + " \u00B0F");
+                        var futureTemp = $("#future-temp-" + i);
+                        futureTemp.text("Temp: " + response.daily[i].temp.day + "\u00B0C");
 
                         // add wind speed to 5 day forecast
-                        var futureWind = $("#futureWind-" + i);
-                        futureWind.text("Wind: " + response.daily[i].temp.day + " \u00B0F");
+                        var futureWind = $("#future-wind-" + i);
+                        futureWind.text("Wind Speed: " + response.daily[i].wind_speed + "m/s");
 
                         // add humidity to 5 day forecast
-                        var futureHumidity = $("#futureHumidity-" + i);
+                        var futureHumidity = $("#future-humidity-" + i);
                         futureHumidity.text("Humidity: " + response.daily[i].humidity + "%");
                     }
                 })
@@ -170,11 +171,11 @@ var fiveDayForecastSection = function(cityName) {
 };
 
 // called when the search form is submitted
-$("#searchForm").on("submit", function() {
+$("#search-form").on("submit", function() {
     event.preventDefault();
     
     // get name of city searched
-    var cityName = $("#searchInput").val();
+    var cityName = $("#search-input").val();
 
     if (cityName === "" || cityName == null) {
         //send alert if search input is empty when submitted
@@ -188,7 +189,7 @@ $("#searchForm").on("submit", function() {
 });
 
 // called when a search history entry is clicked
-$("#searchHistoryContainer").on("click", "p", function() {
+$("#search-history-container").on("click", "p", function() {
     // get text (city name) of entry and pass it as a parameter to display weather conditions
     var previousCityName = $(this).text();
     currentWeatherSection(previousCityName);
