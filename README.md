@@ -7,6 +7,8 @@ The returned details include - Temperature, Wind Speed and Humidity.
 
 Each section is also returns the date and icons to reflect the weather outlook.
 
+The dashboard is powered by the OpenWeatherMap API.
+
 
 ## Usage
 A link to access the website, screenshot and video demonstration of the page is below...
