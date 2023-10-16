@@ -67,7 +67,7 @@ var currentWeatherSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/3.0/onecall??lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+            fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
@@ -113,7 +113,7 @@ var currentWeatherSection = function(cityName) {
 };
 
 var fiveDayForecastSection = function(cityName) {
-    // get and use data from open weather current weather 
+    // get and use data from open weather current weather api end point
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=eaed0e2080f0a5121f48dfec8b3982de`)
         // get response and turn it into objects
         .then(function(response) {
