@@ -90,6 +90,8 @@
 .future-card-details {
     width: 17%;
     padding: 7px 0 0 7px;
+    background-color: rgb(80, 77, 77);
+    color: white;
 }
 
 .future-date {

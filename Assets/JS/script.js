@@ -67,7 +67,7 @@ var currentWeatherSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+            fetch(`https://api.openweathermap.org/data/3.0/onecall??lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
@@ -82,7 +82,7 @@ var currentWeatherSection = function(cityName) {
 
                     // add city name, date, and weather icon to current weather section title
                     var currentTitle = $("#current-title");
-                    var currentDay = moment().format("DD/MM/YYYY");
+                    var currentDay = dayjs().format("DD/MM/YYYY");
                     currentTitle.text(`${cityName} (${currentDay})`);
                     var currentIcon = $("#current-weather-icon");
                     currentIcon.addClass("current-weather-icon");
@@ -113,7 +113,7 @@ var currentWeatherSection = function(cityName) {
 };
 
 var fiveDayForecastSection = function(cityName) {
-    // get and use data from open weather current weather api end point
+    // get and use data from open weather current weather 
     fetch(`https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=eaed0e2080f0a5121f48dfec8b3982de`)
         // get response and turn it into objects
         .then(function(response) {
@@ -124,7 +124,7 @@ var fiveDayForecastSection = function(cityName) {
             var cityLon = response.coord.lon;
             var cityLat = response.coord.lat;
 
-            fetch(`https://api.openweathermap.org/data/2.5/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly,alerts&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
+            fetch(`https://api.openweathermap.org/data/3.0/onecall?lat=${cityLat}&lon=${cityLon}&exclude=minutely,hourly&units=metric&appid=eaed0e2080f0a5121f48dfec8b3982de`)
                 // get response from one call api and turn it into objects
                 .then(function(response) {
                     return response.json();
@@ -144,7 +144,7 @@ var fiveDayForecastSection = function(cityName) {
 
                         // add date to 5 day forecast
                         var futureDate = $("#future-date-" + i);
-                        date = moment().add(i, "d").format("DD/MM/YYYY");
+                        date = dayjs().add(i, "d").format("DD/MM/YYYY");
                         futureDate.text(date);
 
                         // add icon to 5 day forecast
