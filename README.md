@@ -21,7 +21,7 @@ https://petarlo.github.io/Weather-Dashboard/
 
 ## Credits
 ### API's used
-Open Weather Map - https://openweathermap.org/
-Bootstrap - https://getbootstrap.com/
-jQuery - https://jquery.com/
-dayJS - https://day.js.org/en/ 
+Open Weather Map - https://openweathermap.org/ <br>
+Bootstrap - https://getbootstrap.com/ <br>
+jQuery - https://jquery.com/ <br>
+dayJS - https://day.js.org/en/
